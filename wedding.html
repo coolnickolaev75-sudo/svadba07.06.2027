@@ -179,9 +179,12 @@ button:active,.btn:active{transform:scale(.98)}
       <p><b>Почти готово!</b></p>
       <p class="note">Нажмите кнопку ниже — откроется письмо с вашим ответом. Останется только нажать «Отправить».</p>
       <div class="btn-row">
-        <a class="btn" id="ml">Отправить по почте</a>
+        <a class="btn" id="ml">Почта по умолчанию</a>
+        <a class="btn alt" id="mlGmail" target="_blank" rel="noopener">Открыть в Gmail</a>
+        <a class="btn alt" id="mlYandex" target="_blank" rel="noopener">Открыть в Яндекс.Почте</a>
         <button type="button" class="alt" id="cp">Скопировать ответ</button>
       </div>
+      <p class="note" style="margin-top:10px">Если нужное приложение не открылось — нажмите «Скопировать ответ» и вставьте текст в любую почту.</p>
       <div id="msg" class="note"></div>
       <p class="note" style="margin-top:14px">Если письмо не открылось, скопируйте ответ и отправьте его на <b>lnsrpl2005@yandex.ru</b>.</p>
     </div>
@@ -239,8 +242,14 @@ var MAIL="lnsrpl2005@yandex.ru";
     var n=$("nm");if(!n.value.trim()){n.style.borderColor="#b3473a";n.focus();return}
     n.style.borderColor="";
     var m=build();
-    var body = m.split(String.fromCharCode(10)).join(String.fromCharCode(13,10));
-    $("ml").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Анкета гостя: "+n.value.trim())+"&body="+encodeURIComponent(body);
+    var bodyCRLF = m.split(String.fromCharCode(10)).join(String.fromCharCode(13,10));
+    var subj = "Анкета гостя: "+n.value.trim();
+    var encSubj = encodeURIComponent(subj);
+    var encBody = encodeURIComponent(bodyCRLF);
+    var encBodyWeb = encodeURIComponent(m);
+    $("ml").href = "mailto:"+MAIL+"?subject="+encSubj+"&body="+encBody;
+    $("mlGmail").href = "https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encSubj+"&body="+encBodyWeb;
+    $("mlYandex").href = "https://mail.yandex.ru/compose?to="+encodeURIComponent(MAIL)+"&subject="+encSubj+"&body="+encBodyWeb;
     $("msg").textContent=m;$("fm").classList.add("hide");$("done").classList.remove("hide");
     $("done").scrollIntoView({behavior:"smooth",block:"center"});
   });
