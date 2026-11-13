@@ -177,16 +177,15 @@ button:active,.btn:active{transform:scale(.98)}
     </div>
     <div id="done" class="hide">
       <p><b>Почти готово!</b></p>
-      <p class="note">Нажмите кнопку ниже — откроется письмо с вашим ответом. Останется только нажать «Отправить».</p>
+      <p class="note">Нажмите кнопку ниже — откроется SMS с вашим ответом. Останется только нажать «Отправить».</p>
       <div class="btn-row">
-        <a class="btn" id="ml">Почта по умолчанию</a>
-        <a class="btn alt" id="mlGmail" target="_blank" rel="noopener">Открыть в Gmail</a>
-        <a class="btn alt" id="mlYandex" target="_blank" rel="noopener">Открыть в Яндекс.Почте</a>
+        <a class="btn" id="mlSms">Отправить SMS</a>
         <button type="button" class="alt" id="cp">Скопировать ответ</button>
       </div>
-      <p class="note" style="margin-top:10px">Если нужное приложение не открылось — нажмите «Скопировать ответ» и вставьте текст в любую почту.</p>
+      <p class="note" style="margin-top:12px">В целях качественного сбора информации просим убедиться в отправке анкеты.</p>
+      <p class="note" style="margin-top:8px">Если SMS не открылось — скопируйте ответ и отправьте вручную на <b>8 922 388-87-00</b>.</p>
       <div id="msg" class="note"></div>
-      <p class="note" style="margin-top:14px">Если письмо не открылось, скопируйте ответ и отправьте его на <b>lnsrpl2005@yandex.ru</b>.</p>
+      <p class="note" style="margin-top:14px">Если SMS не открылось — нажмите «Скопировать ответ» и отправьте текст вручную на номер <b>8 922 388-87-00</b>.</p>
     </div>
   </section>
   <section class="card reveal reveal-delay-4">
@@ -243,13 +242,7 @@ var MAIL="lnsrpl2005@yandex.ru";
     n.style.borderColor="";
     var m=build();
     var bodyCRLF = m.split(String.fromCharCode(10)).join(String.fromCharCode(13,10));
-    var subj = "Анкета гостя: "+n.value.trim();
-    var encSubj = encodeURIComponent(subj);
-    var encBody = encodeURIComponent(bodyCRLF);
-    var encBodyWeb = encodeURIComponent(m);
-    $("ml").href = "mailto:"+MAIL+"?subject="+encSubj+"&body="+encBody;
-    $("mlGmail").href = "https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(MAIL)+"&su="+encSubj+"&body="+encBodyWeb;
-    $("mlYandex").href = "https://mail.yandex.ru/compose?to="+encodeURIComponent(MAIL)+"&subject="+encSubj+"&body="+encBodyWeb;
+    $("mlSms").href = "sms:+79223888700?&body=" + encodeURIComponent(bodyCRLF);
     $("msg").textContent=m;$("fm").classList.add("hide");$("done").classList.remove("hide");
     $("done").scrollIntoView({behavior:"smooth",block:"center"});
   });
