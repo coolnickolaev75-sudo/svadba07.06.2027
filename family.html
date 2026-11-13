@@ -11,34 +11,42 @@
 <style>
 
 :root {
-  --bg: #f5f0e8;
-  --card: #fffdf9;
+  --bg: #e8e4dc;
+  --bg2: #f3efe8;
+  --card: rgba(255,253,249,0.62);
+  --card-solid: #fffdf9;
   --ink: #2a241e;
   --muted: #8a7c6c;
   --accent: #5a6b4d;
   --accent2: #c9a87c;
-  --soft: #efe7db;
-  --line: #e4d9cb;
-  --radius: 22px;
-  --shadow: 0 6px 28px rgba(42,36,30,.07);
+  --soft: rgba(239,231,219,0.55);
+  --line: rgba(228,217,203,0.55);
+  --radius: 24px;
+  --shadow: 0 8px 32px rgba(42,36,30,.08), 0 1px 0 rgba(255,255,255,.5) inset;
+  --blur: 20px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font:400 16px/1.65 "Jost",system-ui,-apple-system,sans-serif;
-  background:var(--bg);color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(201,168,124,.25), transparent 60%),
+    radial-gradient(900px 500px at 100% 20%, rgba(90,107,77,.12), transparent 55%),
+    linear-gradient(180deg, var(--bg2), var(--bg));
+  background-attachment: fixed;
+  color:var(--ink);
   -webkit-font-smoothing:antialiased;
   padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
   overflow-x:hidden;
+  min-height:100vh;
 }
-.wrap{max-width:480px;margin:0 auto;padding:0 20px 80px}
-.reveal{opacity:1;transform:none;transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
-.reveal.visible{opacity:1;transform:none}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
-.reveal-delay-4{transition-delay:.4s}
-.hero{text-align:center;padding:52px 0 4px}
+.wrap{max-width:480px;margin:0 auto;padding:0 18px 88px}
+.reveal{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal-delay-1{transition-delay:.08s}
+.reveal-delay-2{transition-delay:.16s}
+.reveal-delay-3{transition-delay:.24s}
+.reveal-delay-4{transition-delay:.32s}
+.hero{text-align:center;padding:56px 0 8px}
 .big-title{font:600 clamp(28px,8vw,36px)/1.15 "Cormorant Garamond",Georgia,serif;color:var(--accent);letter-spacing:.08em;margin-bottom:18px;text-transform:uppercase}
 .eyebrow{display:inline-block;letter-spacing:.3em;text-transform:uppercase;font-size:10.5px;font-weight:500;color:var(--muted);margin-bottom:16px}
 .invite-text{font-size:15px;line-height:1.65;color:var(--ink);max-width:340px;margin:0 auto 8px;font-weight:400}
@@ -48,13 +56,43 @@ h1{font:600 clamp(42px,12vw,58px)/1.06 "Cormorant Garamond",Georgia,serif;color:
 .date{font:italic 500 23px/1.3 "Cormorant Garamond",Georgia,serif;color:var(--ink);margin:10px 0 22px}
 .cap{font-size:12.5px;color:var(--muted);margin-bottom:12px;letter-spacing:.03em}
 .count{display:flex;justify-content:center;gap:8px}
-.count > div{min-width:66px;padding:11px 6px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.count > div{
+  min-width:66px;padding:12px 6px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(160%);
+  backdrop-filter:blur(var(--blur)) saturate(160%);
+  transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease;
+}
+.count > div:hover{transform:translateY(-2px)}
 .count b{display:block;font:600 27px/1.1 "Cormorant Garamond",Georgia,serif;color:var(--accent);font-variant-numeric:tabular-nums}
 .count span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .photo-block{margin:36px 0 12px;text-align:center}
-.photo-frame{display:inline-block;padding:10px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.05),0 16px 40px rgba(0,0,0,.1);border-radius:6px}
-.photo-frame img{display:block;width:240px;max-width:70vw;height:auto;border-radius:3px;object-fit:cover}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;margin:22px 0;box-shadow:var(--shadow)}
+.photo-frame{
+  display:inline-block;padding:10px;
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(255,255,255,.45);
+  box-shadow:var(--shadow);
+  border-radius:18px;
+  -webkit-backdrop-filter:blur(16px) saturate(150%);
+  backdrop-filter:blur(16px) saturate(150%);
+  transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+}
+.photo-frame:hover{transform:scale(1.02);box-shadow:0 16px 48px rgba(42,36,30,.12)}
+.photo-frame img{display:block;width:240px;max-width:70vw;height:auto;border-radius:12px;object-fit:cover}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.4);
+  border-radius:var(--radius);
+  padding:26px 22px;margin:22px 0;
+  box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(170%);
+  backdrop-filter:blur(var(--blur)) saturate(170%);
+  transition:transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+}
+.card:hover{box-shadow:0 12px 40px rgba(42,36,30,.1)}
 h2{font:600 25px/1.25 "Cormorant Garamond",Georgia,serif;margin-bottom:16px;color:var(--ink)}
 p{margin-bottom:12px}
 p:last-child{margin-bottom:0}
@@ -65,46 +103,98 @@ a{color:var(--accent);text-underline-offset:2px}
 .t{font:600 21px/1.15 "Cormorant Garamond",Georgia,serif;color:var(--accent);padding-top:1px}
 .ev b{display:block;font-weight:500;font-size:15.5px;margin-bottom:3px}
 .ev span{color:var(--muted);font-size:14px;line-height:1.45}
-.map-link{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;margin-top:5px}
+.map-link{display:inline-flex;align-items:center;gap:4px;font-size:13.5px;margin-top:5px;transition:opacity .25s}
+.map-link:hover{opacity:.75}
 .palette-title{font-size:13px;color:var(--muted);margin:14px 0 8px;display:block}
-.dc-img{display:block;width:100%;height:auto;border-radius:14px;margin:8px 0}
 .palette{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:4px}
 .swatch{width:36px;height:36px;border-radius:50%;border:2px solid rgba(0,0,0,.08);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.dc-img{display:block;width:100%;height:auto;border-radius:16px;margin:8px 0}
 label{display:block;font-size:13px;color:var(--muted);margin:16px 0 6px}
-input[type=text],select,textarea{width:100%;font:inherit;font-size:16px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
-input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(90,107,77,.18)}
+input[type=text],select,textarea{
+  width:100%;font:inherit;font-size:16px;padding:13px 14px;
+  border:1px solid var(--line);border-radius:14px;
+  background:rgba(255,255,255,.45);
+  color:var(--ink);
+  transition:border-color .25s,box-shadow .25s,background .25s;
+  -webkit-appearance:none;
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(90,107,77,.15);
+  background:rgba(255,255,255,.7);
+}
 .opts{display:flex;gap:10px}
 .opts label{flex:1;position:relative;margin:0}
 .opts input{position:absolute;opacity:0;pointer-events:none}
-.opts span{display:block;text-align:center;padding:13px 8px;border:1px solid var(--line);border-radius:12px;font-size:14.5px;cursor:pointer;transition:all .2s;user-select:none}
-.opts input:checked+span{background:var(--accent);color:#fff;border-color:var(--accent)}
+.opts span{
+  display:block;text-align:center;padding:13px 8px;
+  border:1px solid var(--line);border-radius:14px;font-size:14.5px;cursor:pointer;
+  transition:all .28s cubic-bezier(.22,1,.36,1);user-select:none;
+  background:rgba(255,255,255,.35);
+  -webkit-backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px);
+}
+.opts input:checked+span{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+  box-shadow:0 6px 18px rgba(90,107,77,.28);
+  transform:translateY(-1px);
+}
 .chk{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:14.5px;margin:14px 0 0;cursor:pointer}
 .chk input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0}
 .alc-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
 .alc-opts label{margin:0;position:relative}
 .alc-opts input{position:absolute;opacity:0;pointer-events:none}
-.alc-opts span{display:block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;font-size:13.5px;cursor:pointer;transition:all .2s;user-select:none;background:var(--bg)}
-.alc-opts input:checked+span{background:var(--accent);color:#fff;border-color:var(--accent)}
-button,.btn{display:block;width:100%;min-height:50px;margin-top:18px;border:1px solid var(--accent);border-radius:14px;background:var(--accent);color:#fff;font:500 15.5px Jost,system-ui,sans-serif;text-align:center;text-decoration:none;padding:13px 16px;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.alc-opts span{
+  display:block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;
+  font-size:13.5px;cursor:pointer;transition:all .28s cubic-bezier(.22,1,.36,1);user-select:none;
+  background:rgba(255,255,255,.35);
+}
+.alc-opts input:checked+span{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+  box-shadow:0 4px 14px rgba(90,107,77,.22);
+}
+button,.btn{
+  display:block;width:100%;min-height:50px;margin-top:18px;
+  border:1px solid rgba(90,107,77,.35);border-radius:16px;
+  background:linear-gradient(180deg, rgba(90,107,77,.95), var(--accent));
+  color:#fff;
+  font:500 15.5px Jost,system-ui,sans-serif;text-align:center;text-decoration:none;
+  padding:13px 16px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.22,1,.36,1), opacity .2s, box-shadow .25s;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:0 8px 22px rgba(90,107,77,.22);
+}
 button:active,.btn:active{transform:scale(.98)}
+button:hover,.btn:hover{box-shadow:0 10px 28px rgba(90,107,77,.28)}
 .btn-row{display:flex;flex-direction:column;gap:10px;margin-top:14px}
 .btn-row .btn,.btn-row button{margin-top:0}
-.alt{background:transparent;color:var(--accent)}
+.alt{
+  background:rgba(255,255,255,.4);
+  color:var(--accent);
+  border:1px solid var(--line);
+  box-shadow:none;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+.alt:hover{background:rgba(255,255,255,.6)}
 .hide{display:none!important}
-#done{animation:fadeUp .4s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-#msg{white-space:pre-line;margin:16px 0 0;padding:14px;border:1px dashed var(--line);border-radius:12px;font-size:13.5px;line-height:1.5;background:var(--bg)}
+#done{animation:fadeUp .5s cubic-bezier(.22,1,.36,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#msg{
+  white-space:pre-line;margin:16px 0 0;padding:14px;
+  border:1px dashed var(--line);border-radius:14px;
+  font-size:13.5px;line-height:1.5;
+  background:rgba(255,255,255,.35);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
 .gift-icon{font-size:28px;margin-bottom:10px;display:block;text-align:center}
 .gift-text{text-align:center;font-size:15px;line-height:1.6}
 .gift-text strong{color:var(--accent)}
 .foot{text-align:center;font:italic 500 20px "Cormorant Garamond",Georgia,serif;color:var(--muted);margin-top:40px}
 .ornament{width:40px;height:1px;background:var(--accent2);margin:0 auto 18px;opacity:.55}
-
-
-
-  90%{opacity:.4}
-  100%{transform:translateY(110vh) rotate(720deg) translateX(40px);opacity:0}
-}
 
 </style>
 </head>
@@ -149,20 +239,26 @@ button:active,.btn:active{transform:scale(.98)}
     <h2>Анкета гостя</h2>
     <div id="fm">
       <p class="note">Пожалуйста, подтвердите, что придёте. Это поможет нам всё подготовить.<br><b>Просим ответить до 1 апреля.</b></p>
-      <label for="nm">Ваше имя и фамилия</label>
-      <input id="nm" type="text" autocomplete="name" placeholder="Как вас записать">
       <label>Сможете прийти?</label>
       <div class="opts">
         <label><input type="radio" name="go" value="yes" checked><span>С радостью приду</span></label>
         <label><input type="radio" name="go" value="no"><span>Не смогу</span></label>
       </div>
       <div id="yes">
-        <label for="n">Сколько человек придёт, включая вас</label>
-        <select id="n"><option>1</option><option>2</option><option>3</option><option>4</option></select>
-        <div id="withBox" class="hide">
-          <label for="w">Имена тех, кто придёт с вами</label>
-          <input id="w" type="text" placeholder="Имена">
+        <label>Сколько человек придёт</label>
+        <div class="opts" id="numOpts">
+          <label><input type="radio" name="num" value="1" checked><span>1</span></label>
+          <label><input type="radio" name="num" value="2"><span>2</span></label>
         </div>
+        <div id="nameFields">
+          <label for="n1">ФИО 1-го гостя</label>
+          <input id="n1" type="text" autocomplete="name" placeholder="Фамилия Имя Отчество">
+          <div id="n2wrap" class="hide">
+            <label for="n2">ФИО 2-го гостя</label>
+            <input id="n2" type="text" autocomplete="name" placeholder="Фамилия Имя Отчество">
+          </div>
+        </div>
+        
         <label class="chk"><input type="checkbox" id="z" checked> Буду и на росписи в 15:30</label>
         <label>Какой алкоголь предпочитаете?</label>
         <div class="alc-opts">
@@ -174,6 +270,10 @@ button:active,.btn:active{transform:scale(.98)}
         </div>
         <label for="c">Аллергии и пожелания по меню</label>
         <textarea id="c" rows="2" placeholder="Если есть — напишите"></textarea>
+      </div>
+      <div id="noName" class="hide">
+        <label for="n0">Ваше ФИО</label>
+        <input id="n0" type="text" autocomplete="name" placeholder="Фамилия Имя Отчество">
       </div>
       <button type="button" id="send">Отправить ответ</button>
     </div>
@@ -224,24 +324,48 @@ var MAIL="lnsrpl2005@yandex.ru";
   }
   tick();setInterval(tick,1000);
   function yes(){return document.querySelector("input[name=go]:checked").value==="yes"}
-  function upd(){$("yes").classList.toggle("hide",!yes());$("withBox").classList.toggle("hide",!yes()||$("n").value==="1")}
+  function numGuests(){var el=document.querySelector("input[name=num]:checked");return el?el.value:"1"}
+  function upd(){
+    var y=yes();
+    $("yes").classList.toggle("hide",!y);
+    $("noName").classList.toggle("hide",y);
+    $("n2wrap").classList.toggle("hide",!(y && numGuests()==="2"));
+  }
   document.querySelectorAll("input[name=go]").forEach(function(r){r.addEventListener("change",upd)});
-  $("n").addEventListener("change",upd);
+  document.querySelectorAll("input[name=num]").forEach(function(r){r.addEventListener("change",upd)});
   function getAlcohol(){var c=document.querySelectorAll('input[name="alc"]:checked');return c.length?Array.from(c).map(function(x){return x.value}).join(", "):""}
   function build(){
-    var t=["Свадьба Лины и Игоря, 7 июня 2027","Имя: "+$("nm").value.trim(),yes()?"Ответ: приду":"Ответ: не смогу"];
+    var t=["Свадьба Лины и Игоря, 7 июня 2027"];
     if(yes()){
-      t.push("Всего человек: "+$("n").value);
-      var w=$("w").value.trim();if(w&&$("n").value!=="1")t.push("С кем: "+w);
-      if(IS_FAMILY)t.push("Роспись в 15:30: "+($("z").checked?"буду":"не буду"));
-      var alc=getAlcohol();if(alc)t.push("Алкоголь: "+alc);
-      var c=$("c").value.trim();if(c)t.push("Пожелания: "+c);
+      t.push("Ответ: приду");
+      var n=numGuests();
+      t.push("Всего человек: "+n);
+      t.push("1-й гость: "+$("n1").value.trim());
+      if(n==="2") t.push("2-й гость: "+$("n2").value.trim());
+      if(IS_FAMILY) t.push("Роспись в 15:30: "+($("z").checked?"буду":"не буду"));
+      var alc=getAlcohol(); if(alc) t.push("Алкоголь: "+alc);
+      var c=$("c").value.trim(); if(c) t.push("Пожелания: "+c);
+    } else {
+      t.push("Ответ: не смогу");
+      var n0=$("n0").value.trim(); if(n0) t.push("Имя: "+n0);
     }
-    return t.join("\n");
+    return t.join(String.fromCharCode(10));
   }
   $("send").addEventListener("click",function(){
-    var n=$("nm");if(!n.value.trim()){n.style.borderColor="#b3473a";n.focus();return}
-    n.style.borderColor="";
+    if(yes()){
+      var n1=$("n1");
+      if(!n1.value.trim()){n1.style.borderColor="#b3473a";n1.focus();return}
+      n1.style.borderColor="";
+      if(numGuests()==="2"){
+        var n2=$("n2");
+        if(!n2.value.trim()){n2.style.borderColor="#b3473a";n2.focus();return}
+        n2.style.borderColor="";
+      }
+    } else {
+      var n0=$("n0");
+      if(!n0.value.trim()){n0.style.borderColor="#b3473a";n0.focus();return}
+      n0.style.borderColor="";
+    }
     var m=build();
     var bodyCRLF = m.split(String.fromCharCode(10)).join(String.fromCharCode(13,10));
     $("mlSms").href = "sms:+79223888700?&body=" + encodeURIComponent(bodyCRLF);
